@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     private bool canJump, canDoubleJump;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
+    //public Animator anim;
+    public GameObject bullet;
+    public Transform firePoint;
 
     
     // Start is called before the first frame update
@@ -64,5 +67,11 @@ public class PlayerController : MonoBehaviour
         }
         transform.rotation =  Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + MouseInput.x, transform.rotation.eulerAngles.z);
         CamTrans.rotation = Quaternion.Euler(CamTrans.rotation.eulerAngles + new Vector3(-MouseInput.y, 0f, 0f));
+
+        //shooting
+        if(Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
     }
 }
