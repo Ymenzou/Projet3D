@@ -10,17 +10,11 @@ public class BulletController : MonoBehaviour
 
     public GameObject impactEffect;
 
-    public int damage = 1;
-
-    public bool damageEnemy, damagePlayer;
-
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         theRB.velocity = transform.forward * moveSpeed;
@@ -35,23 +29,9 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.gameObject.tag == "Enemy" && damageEnemy)
         if(other.gameObject.tag == "Enemy")
         {
             Destroy(other.gameObject);
-            //other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
-        }
-
-        if(other.gameObject.tag == "Headshot" && damageEnemy)
-        { 
-           // other.transform.parent.GetComponent<EnemyHealthController>().DamageEnemy(damage * 2);
-            Debug.Log("Headshot hit");
-        }
-
-        if(other.gameObject.tag == "Player" && damagePlayer)
-        {
-            //Debug.Log("Hit Player at " + transform.position);
-            //PlayerHealthController.instance.DamagePlayer(damage);
         }
         
 
