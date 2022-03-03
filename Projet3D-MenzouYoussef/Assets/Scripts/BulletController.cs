@@ -35,9 +35,10 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Enemy" && damageEnemy)
+        //if(other.gameObject.tag == "Enemy" && damageEnemy)
+        if(other.gameObject.tag == "Enemy")
         {
-            //Destroy(other.gameObject);
+            Destroy(other.gameObject);
             //other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
         }
 
@@ -52,6 +53,7 @@ public class BulletController : MonoBehaviour
             //Debug.Log("Hit Player at " + transform.position);
             //PlayerHealthController.instance.DamagePlayer(damage);
         }
+        
 
         Destroy(gameObject);
         Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);

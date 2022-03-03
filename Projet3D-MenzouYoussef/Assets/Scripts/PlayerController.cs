@@ -71,6 +71,15 @@ public class PlayerController : MonoBehaviour
         //shooting
         if(Input.GetMouseButtonDown(0))
         {
+            RaycastHit hit;
+            if(Physics.Raycast(CamTrans.position, CamTrans.forward, out hit, 50f))
+            {
+                firePoint.LookAt(hit.point);
+            }
+            else
+            {
+                firePoint.LookAt(CamTrans.position + (CamTrans.forward * 30f));
+            }
             Instantiate(bullet, firePoint.position, firePoint.rotation);
         }
     }
