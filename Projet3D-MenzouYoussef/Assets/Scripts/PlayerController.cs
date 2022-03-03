@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float MoveSpeed;
+    public float MoveSpeed, GravityModifier, JumpPower;
     public CharacterController CharCon; 
     private Vector3 MoveInput;
     public Transform CamTrans;
     public float MouseSensitivity;
     public bool invertX;
     public bool invertY;
+    private bool canJump, canDoubleJump;
+    public Transform groundCheckPoint;
+    public LayerMask whatIsGround;
 
     
     // Start is called before the first frame update
@@ -24,12 +27,27 @@ public class PlayerController : MonoBehaviour
     {
         //MoveInput.x = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime; 
        // MoveInput.z = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
+       float yStore = MoveInput.y;
        Vector3 VertMove = transform.forward * Input.GetAxis("Vertical");
        Vector3 HoriMove = transform.right * Input.GetAxis("Horizontal");
         //MoveInput = VertMove * MoveSpeed * Time.deltaTime;
         MoveInput = HoriMove + VertMove;
         MoveInput.Normalize();
         MoveInput = MoveInput * MoveSpeed;
+        MoveInput.y = yStore;
+        MoveInput.y += Physics.gravity.y * GravityModifier * Time.deltaTime;
+
+        if(CharCon.isGrounded)
+        {
+            MoveInput.y = Physics.gravity.y * GravityModifier * Time.deltaTime;
+        }
+        canJump = Physics.OverlapSphere(groundCheckPoint.position, .25f, whatIsGround).Length > 0;
+
+        //Jumping
+        if(Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
+            MoveInput.y = JumpPower;
+        }
 
         CharCon.Move(MoveInput * Time.deltaTime);
 

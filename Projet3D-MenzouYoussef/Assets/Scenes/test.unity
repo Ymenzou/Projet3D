@@ -1151,6 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 7
+  GravityModifier: 2
   CharCon: {fileID: 1974569158}
   CamTrans: {fileID: 822860846}
   MouseSensitivity: 2
